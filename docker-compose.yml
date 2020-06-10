@@ -1,0 +1,14 @@
+version: "2.4"
+services:
+  sftp:
+    image: atmoz/sftp:alpine
+    restart: unless-stopped
+    volumes:
+      - ./home:/home
+      - ./users.conf:/etc/sftp/users.conf
+      - /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key
+      - /etc/ssh/ssh_host_rsa_key.pub:/etc/ssh/ssh_host_rsa_key.pub
+      - /etc/ssh/ssh_host_ed25519_key.pub:/etc/ssh/ssh_host_ed25519_key.pub
+      - /etc/ssh/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key
+    ports:
+       - "${SFTP_LISTEN:-8822}:22"
